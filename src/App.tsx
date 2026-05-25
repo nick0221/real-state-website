@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import CompareBar from "./components/CompareBar";
 import BackToTop from "./components/BackToTop";
 import LoadingSpinner from "./components/LoadingSpinner";
+import DemoBanner, { BANNER_HEIGHT } from "./components/DemoBanner";
 import { CompareProvider } from "./context/CompareContext";
 
 const PropertyDetail = lazy(() => import("./components/PropertyDetail"));
@@ -45,7 +46,11 @@ function HomePage() {
           const element = document.getElementById(id);
           if (element) {
             e.preventDefault();
-            const offset = 80;
+            const bannerOffset =
+              localStorage.getItem("demo-banner-dismissed") !== "true"
+                ? BANNER_HEIGHT
+                : 0;
+            const offset = 80 + bannerOffset;
             const top =
               element.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior: "smooth" });
@@ -80,6 +85,7 @@ function App() {
       <CompareProvider>
         <ScrollToTop />
         <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
+          <DemoBanner />
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
               <Route path="/" element={<HomePageWithCompare />} />

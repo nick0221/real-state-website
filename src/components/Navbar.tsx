@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import { BANNER_HEIGHT } from "./DemoBanner";
 
 const NAVBAR_HEIGHT = 80;
 const SCROLL_THRESHOLD = 50;
@@ -19,7 +20,15 @@ function scrollToSection(href: string) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+  const bannerOffset =
+    localStorage.getItem("demo-banner-dismissed") !== "true"
+      ? BANNER_HEIGHT
+      : 0;
+  const top =
+    el.getBoundingClientRect().top +
+    window.scrollY -
+    NAVBAR_HEIGHT -
+    bannerOffset;
 
   window.scrollTo({
     top,
@@ -32,7 +41,23 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [bannerVisible, setBannerVisible] = useState(
+    () => localStorage.getItem("demo-banner-dismissed") !== "true"
+  );
+
+  // Keep in sync when dismissed on the same tab
+  useEffect(() => {
+    const handler = () => {
+      setBannerVisible(
+        localStorage.getItem("demo-banner-dismissed") !== "true"
+      );
+    };
+    window.addEventListener("demo-banner-change", handler);
+    return () => window.removeEventListener("demo-banner-change", handler);
+  }, []);
+
   const lastScrollY = useRef(0);
+  const bannerOffset = bannerVisible ? BANNER_HEIGHT : 0;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,7 +126,7 @@ export default function Navbar() {
   return (
     <>
     <motion.nav
-      animate={{ y: hidden ? -100 : 0 }}
+      animate={{ y: hidden ? -(100 + bannerOffset) : bannerOffset }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 max-lg:bg-navy-900/95 ${
         scrolled
