@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 
 const NAVBAR_HEIGHT = 80;
+const SCROLL_THRESHOLD = 50;
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -28,10 +29,25 @@ function scrollToSection(href: string) {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > SCROLL_THRESHOLD);
+
+      // Only start hiding after scrolling past a threshold (not at top of page)
+      if (currentY > SCROLL_THRESHOLD) {
+        const scrollingDown = currentY > lastScrollY.current;
+        setHidden(scrollingDown);
+      } else {
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -56,9 +72,8 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      animate={{ y: hidden ? -100 : 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 max-lg:bg-navy-900/95 ${
         scrolled
           ? "bg-navy-900/95 backdrop-blur-xl max-lg:backdrop-blur-sm shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
