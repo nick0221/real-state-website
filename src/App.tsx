@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import PropertyDetail from "./components/PropertyDetail";
 import ComparePage from "./components/ComparePage";
 import CompareBar from "./components/CompareBar";
+import BackToTop from "./components/BackToTop";
 import { CompareProvider } from "./context/CompareContext";
 
 function ScrollToTop() {
@@ -82,6 +83,7 @@ function App() {
             <Route path="/property/:id" element={<PropertyDetail />} />
             <Route path="/compare" element={<ComparePage />} />
           </Routes>
+          <BackToTop />
         </div>
       </CompareProvider>
     </BrowserRouter>
