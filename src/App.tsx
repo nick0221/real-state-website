@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -8,11 +8,13 @@ import Agents from "./components/Agents";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import PropertyDetail from "./components/PropertyDetail";
-import ComparePage from "./components/ComparePage";
 import CompareBar from "./components/CompareBar";
 import BackToTop from "./components/BackToTop";
+import LoadingSpinner from "./components/LoadingSpinner";
 import { CompareProvider } from "./context/CompareContext";
+
+const PropertyDetail = lazy(() => import("./components/PropertyDetail"));
+const ComparePage = lazy(() => import("./components/ComparePage"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -78,11 +80,13 @@ function App() {
       <CompareProvider>
         <ScrollToTop />
         <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
-          <Routes>
-            <Route path="/" element={<HomePageWithCompare />} />
-            <Route path="/property/:id" element={<PropertyDetail />} />
-            <Route path="/compare" element={<ComparePage />} />
-          </Routes>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/" element={<HomePageWithCompare />} />
+              <Route path="/property/:id" element={<PropertyDetail />} />
+              <Route path="/compare" element={<ComparePage />} />
+            </Routes>
+          </Suspense>
           <BackToTop />
         </div>
       </CompareProvider>
