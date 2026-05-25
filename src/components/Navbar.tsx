@@ -169,49 +169,96 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-navy-900/98 z-40 lg:hidden"
-          >
-            <div className="flex flex-col items-center justify-center h-full gap-8">
-              {navLinks.map((link, i) => {
-                const isActive = activeSection === link.href.replace("#", "");
-                return (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className={`text-2xl font-display transition-colors cursor-pointer ${
-                      isActive
-                        ? "text-gold-500"
-                        : "text-text-primary hover:text-gold-500"
-                    }`}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 bg-navy-900/60 backdrop-blur-sm z-40 lg:hidden cursor-pointer"
+            />
+
+            {/* Drawer Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-navy-900 border-l border-navy-500/20 z-50 lg:hidden shadow-2xl"
+            >
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-navy-500/20">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-sm font-bold">
+                    P
+                  </div>
+                  <span className="font-display text-base font-bold">
+                    <span className="text-text-primary">Prestige</span>
+                    <span className="text-gold-500"> Estates</span>
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 text-text-secondary hover:text-gold-500 transition-colors rounded-lg hover:bg-navy-700/50 cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex flex-col px-4 pt-6 pb-24 overflow-y-auto">
+                {navLinks.map((link, i) => {
+                  const isActive = activeSection === link.href.replace("#", "");
+                  return (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.06 }}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`group flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? "text-gold-500 bg-gold-500/10"
+                          : "text-text-secondary hover:text-gold-500 hover:bg-navy-800/50"
+                      }`}
+                    >
+                      {/* Active indicator bar */}
+                      <span
+                        className={`w-1 h-5 rounded-full transition-all duration-300 ${
+                          isActive
+                            ? "bg-gold-500"
+                            : "bg-transparent group-hover:bg-gold-500/50"
+                        }`}
+                      />
+                      {link.label}
+                    </motion.a>
+                  );
+                })}
+              </nav>
+
+              {/* Bottom Section */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-navy-500/20 bg-navy-800/30">
+                <div className="px-4 py-3 rounded-xl bg-navy-800/50 border border-navy-500/20">
+                  <div className="text-xs text-text-muted mb-1">Contact</div>
+                  <a
+                    href="tel:+13105550142"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 transition-colors font-medium"
                   >
-                    {link.label}
-                  </motion.a>
-                );
-              })}
-              <motion.a
-                href="tel:+13105550142"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                onClick={() => setMobileOpen(false)}
-                className="mt-4 flex items-center gap-2 text-lg text-gold-500 font-medium"
-              >
-                <Phone className="w-5 h-5" />
-                (310) 555-0142
-              </motion.a>
-            </div>
-          </motion.div>
+                    <Phone className="w-4 h-4" />
+                    (310) 555-0142
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
