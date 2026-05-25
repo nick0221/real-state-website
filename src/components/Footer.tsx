@@ -8,6 +8,7 @@ import {
   Briefcase,
   Play,
 } from "lucide-react";
+import AnimatedSection from "./AnimatedSection";
 
 const footerLinks = [
   {
@@ -71,7 +72,7 @@ export default function Footer() {
         {/* Top Section */}
         <div className="grid lg:grid-cols-4 gap-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <AnimatedSection className="lg:col-span-1" delay={0}>
             <a href="#hero" className="flex items-center gap-2 mb-5">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold">
                 P
@@ -102,33 +103,35 @@ export default function Footer() {
                 );
               })}
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Links */}
-          {footerLinks.map((group) => (
-            <div key={group.title}>
-              <h4 className="font-display text-sm font-bold text-text-primary uppercase tracking-wider mb-4">
-                {group.title}
-              </h4>
-              <ul className="space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-text-secondary text-sm hover:text-gold-500 transition-colors flex items-center gap-1 group"
-                    >
-                      <ChevronRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {footerLinks.map((group, i) => (
+            <AnimatedSection key={group.title} delay={0.1 + i * 0.08}>
+              <div>
+                <h4 className="font-display text-sm font-bold text-text-primary uppercase tracking-wider mb-4">
+                  {group.title}
+                </h4>
+                <ul className="space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        className="text-text-secondary text-sm hover:text-gold-500 transition-colors flex items-center gap-1 group"
+                      >
+                        <ChevronRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
           ))}
         </div>
 
         {/* Newsletter + Bottom */}
-        <div className="mt-12 pt-8 border-t border-navy-500/20">
+        <AnimatedSection delay={0.3} className="mt-12 pt-8 border-t border-navy-500/20">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             {/* Newsletter */}
             <div className="w-full md:max-w-sm">
@@ -166,7 +169,7 @@ export default function Footer() {
               <p>All rights reserved. | Privacy Policy | Terms of Service</p>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </footer>
   );
