@@ -48,7 +48,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding relative overflow-hidden bg-navy-800/30">
+    <section id="services" className="section-padding relative overflow-hidden bg-navy-800/30 scroll-mt-20">
       {/* Background Decor */}
       <div className="absolute top-1/2 left-1/4 w-[25rem] h-[25rem] bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
 

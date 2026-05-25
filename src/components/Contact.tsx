@@ -45,7 +45,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
+    <section id="contact" className="section-padding relative overflow-hidden scroll-mt-20">
       {/* Background Decor */}
       <div className="absolute top-0 left-1/3 w-[35rem] h-[35rem] bg-gold-500/3 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[25rem] h-[25rem] bg-navy-600/20 rounded-full blur-[100px] pointer-events-none" />

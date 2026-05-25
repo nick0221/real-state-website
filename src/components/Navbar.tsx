@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+
+const NAVBAR_HEIGHT = 80;
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -10,6 +12,19 @@ const navLinks = [
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
+
+function scrollToSection(href: string) {
+  const id = href.replace("#", "");
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const top = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+
+  window.scrollTo({
+    top,
+    behavior: "smooth",
+  });
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,6 +41,19 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      setMobileOpen(false);
+
+      // Small delay to let the mobile menu close animation start
+      requestAnimationFrame(() => {
+        scrollToSection(href);
+      });
+    },
+    []
+  );
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -39,7 +67,11 @@ export default function Navbar() {
     >
       <div className="container-main flex items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2 group">
+        <a
+          href="#hero"
+          onClick={(e) => handleNavClick(e, "#hero")}
+          className="flex items-center gap-2 group"
+        >
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold transition-transform duration-300 group-hover:scale-105">
             P
           </div>
@@ -55,6 +87,7 @@ export default function Navbar() {
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="relative px-4 py-2 text-sm font-medium text-text-secondary hover:text-gold-500 transition-colors duration-300 group"
             >
               {link.label}
@@ -99,8 +132,8 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-2xl font-display text-text-primary hover:text-gold-500 transition-colors"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-2xl font-display text-text-primary hover:text-gold-500 transition-colors cursor-pointer"
                 >
                   {link.label}
                 </motion.a>

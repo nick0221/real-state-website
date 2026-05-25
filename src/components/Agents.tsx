@@ -4,7 +4,7 @@ import { agents } from "../data/properties";
 
 export default function Agents() {
   return (
-    <section id="agents" className="section-padding relative overflow-hidden bg-navy-800/30">
+    <section id="agents" className="section-padding relative overflow-hidden bg-navy-800/30 scroll-mt-20">
       {/* Background Decor */}
       <div className="absolute top-1/4 right-1/3 w-[30rem] h-[30rem] bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
 
