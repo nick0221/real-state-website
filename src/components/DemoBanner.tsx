@@ -32,7 +32,7 @@ export default function DemoBanner() {
             </span>
             <button
               onClick={dismiss}
-              className="ml-3 p-1 rounded-full hover:bg-gold-500/20 transition-colors text-gold-400 hover:text-gold-300 cursor-pointer flex-shrink-0"
+              className="ml-3 p-1 rounded-full hover:bg-gold-500/20 transition-colors text-gold-400 hover:text-gold-300 cursor-pointer shrink-0"
               aria-label="Dismiss demo notice"
             >
               <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
