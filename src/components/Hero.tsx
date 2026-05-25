@@ -25,8 +25,8 @@ export default function Hero() {
           className="w-full h-full object-cover"
         />
         {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
+        <div className="absolute inset-0 bg-linear-to-r from-navy-900/40 to-transparent" />
         {/* Decorative gradient orb */}
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-[120px]" />
       </div>
@@ -140,13 +140,13 @@ export default function Hero() {
                 transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
                 className="relative"
               >
-                <div className="aspect-[3/4] rounded-2xl overflow-hidden gold-glow">
+                <div className="aspect-3/4 rounded-2xl overflow-hidden gold-glow">
                   <img
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85"
                     alt="Luxury home"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-navy-900/60 via-transparent to-transparent" />
                 </div>
                 {/* Floating badge */}
                 <motion.div
@@ -156,7 +156,7 @@ export default function Hero() {
                   className="absolute -bottom-4 -left-8 bg-navy-800/90 backdrop-blur-xl border border-navy-500/30 rounded-xl p-4 gold-glow"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-br from-gold-500 to-gold-700 flex items-center justify-center">
                       <Home className="w-6 h-6 text-navy-900" />
                     </div>
                     <div>

@@ -28,14 +28,14 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
       onKeyDown={(e) => e.key === 'Enter' && navigate(`/property/${property.id}`)}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="relative overflow-hidden aspect-4/3">
         <img
           src={property.image}
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {/* Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
         {/* Status Badge */}
         <div className="absolute top-4 left-4 flex gap-2">

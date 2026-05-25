@@ -162,7 +162,7 @@ export default function PropertyDetail() {
         <section className="relative">
           <div className="container-main px-6 pt-6 pb-0">
             {/* Main Image */}
-            <div className="relative rounded-2xl overflow-hidden aspect-[21/10] max-h-[70vh] gold-glow">
+            <div className="relative rounded-2xl overflow-hidden aspect-21/10 max-h-[70vh] gold-glow">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeImage}
@@ -177,7 +177,7 @@ export default function PropertyDetail() {
               </AnimatePresence>
 
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-navy-900/10" />
+              <div className="absolute inset-0 bg-linear-to-t from-navy-900/60 via-transparent to-navy-900/10" />
 
               {/* Image count badge */}
               <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-navy-900/70 backdrop-blur-sm text-text-secondary text-xs font-medium">
@@ -408,7 +408,7 @@ export default function PropertyDetail() {
                   {!showFloorPlan && (
                     <button
                       onClick={() => setShowFloorPlan(true)}
-                      className="relative w-full aspect-[2/1] rounded-2xl overflow-hidden border border-navy-500/20 gold-glow group cursor-pointer"
+                      className="relative w-full aspect-2/1 rounded-2xl overflow-hidden border border-navy-500/20 gold-glow group cursor-pointer"
                     >
                       <img
                         src={floorPlanSvg}

@@ -50,7 +50,7 @@ export default function Services() {
   return (
     <section id="services" className="section-padding relative overflow-hidden bg-navy-800/30 scroll-mt-20">
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/4 w-[25rem] h-[25rem] bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-100 h-100 bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container-main relative">
         {/* Section Header */}
@@ -89,10 +89,10 @@ export default function Services() {
                 className="group relative bg-navy-800/50 border border-navy-500/20 rounded-2xl p-8 hover:border-gold-500/30 transition-all duration-500 hover:-translate-y-1"
               >
                 {/* Hover Glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} p-3.5 mb-5 relative`}>
+                <div className={`w-14 h-14 rounded-xl bg-linear-to-br ${service.color} p-3.5 mb-5 relative`}>
                   <Icon className="w-full h-full text-navy-900" />
                 </div>
 
@@ -105,7 +105,7 @@ export default function Services() {
                 </p>
 
                 {/* Bottom accent line */}
-                <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-gradient-to-r from-gold-500/0 via-gold-500/50 to-gold-500/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-linear-to-r from-gold-500/0 via-gold-500/50 to-gold-500/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </motion.div>
             );
           })}

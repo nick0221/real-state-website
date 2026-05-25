@@ -6,7 +6,7 @@ export default function Agents() {
   return (
     <section id="agents" className="section-padding relative overflow-hidden bg-navy-800/30 scroll-mt-20">
       {/* Background Decor */}
-      <div className="absolute top-1/4 right-1/3 w-[30rem] h-[30rem] bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 right-1/3 w-120 h-120 bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container-main relative">
         {/* Section Header */}
@@ -42,7 +42,7 @@ export default function Agents() {
               className="group relative bg-navy-800/50 border border-navy-500/20 rounded-2xl p-6 text-center hover:border-gold-500/30 transition-all duration-500"
             >
               {/* Hover Glow */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute inset-0 rounded-2xl bg-linear-to-b from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
               {/* Avatar */}
               <div className="relative mx-auto mb-5 w-28 h-28">

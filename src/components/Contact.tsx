@@ -47,8 +47,8 @@ export default function Contact() {
   return (
     <section id="contact" className="section-padding relative overflow-hidden scroll-mt-20">
       {/* Background Decor */}
-      <div className="absolute top-0 left-1/3 w-[35rem] h-[35rem] bg-gold-500/3 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[25rem] h-[25rem] bg-navy-600/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/3 w-140 h-140 bg-gold-500/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-100 h-100 bg-navy-600/20 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container-main relative">
         {/* Section Header */}
@@ -119,7 +119,7 @@ export default function Contact() {
               transition={{ duration: 0.4, delay: 0.4 }}
               className="sm:col-span-2 bg-navy-800/50 border border-navy-500/20 rounded-xl overflow-hidden h-48 hover:border-gold-500/30 transition-all duration-300"
             >
-              <div className="w-full h-full bg-gradient-to-br from-navy-700/50 to-navy-800/80 flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-navy-700/50 to-navy-800/80 flex items-center justify-center">
                 <div className="text-center">
                   <MapPin className="w-8 h-8 text-gold-500 mx-auto mb-2" />
                   <p className="text-text-muted text-sm">

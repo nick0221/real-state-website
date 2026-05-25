@@ -66,7 +66,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-navy-800/50 border-t border-navy-500/20">
       {/* Background Decor */}
-      <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-gold-500/2 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-120 h-120 bg-gold-500/2 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container-main relative px-6 pt-16 pb-8">
         {/* Top Section */}
@@ -74,7 +74,7 @@ export default function Footer() {
           {/* Brand */}
           <AnimatedSection className="lg:col-span-1" delay={0}>
             <a href="#hero" className="flex items-center gap-2 mb-5">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold">
+              <div className="w-10 h-10 rounded-lg bg-linear-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold">
                 P
               </div>
               <span className="font-display text-xl font-bold">

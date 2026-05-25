@@ -208,13 +208,13 @@ export default function ComparePage() {
                       className="p-4 min-w-[240px] align-top"
                     >
                       <div className="bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden gold-glow">
-                        <div className="relative aspect-[4/3] overflow-hidden">
+                        <div className="relative aspect-4/3 overflow-hidden">
                           <img
                             src={p.image}
                             alt={p.title}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent" />
+                          <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 to-transparent" />
                           <div className="absolute bottom-3 left-3 right-3">
                             <div className="font-display text-lg font-bold text-white drop-shadow-lg">
                               {formatPrice(p.price, p.type)}
@@ -304,13 +304,13 @@ export default function ComparePage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden gold-glow"
               >
-                <div className="relative aspect-[16/9] overflow-hidden">
+                <div className="relative aspect-video overflow-hidden">
                   <img
                     src={p.image}
                     alt={p.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
                     <div>
                       <h3 className="font-display text-xl font-bold text-white">

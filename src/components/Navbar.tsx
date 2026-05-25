@@ -141,7 +141,7 @@ export default function Navbar() {
           onClick={(e) => handleNavClick(e, "#hero")}
           className="flex items-center gap-2 group"
         >
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold transition-transform duration-300 group-hover:scale-105">
+          <div className="w-10 h-10 rounded-lg bg-linear-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-xl font-bold transition-transform duration-300 group-hover:scale-105">
             P
           </div>
           <span className="font-display text-xl md:text-2xl font-bold tracking-wide">
@@ -216,12 +216,12 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-gradient-to-b from-navy-900 via-navy-900 to-[#06060d] border-l border-navy-500/20 z-50 lg:hidden shadow-[0_0_60px_rgba(0,0,0,0.5),-8px_0_40px_rgba(0,0,0,0.4)]"
+              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-linear-to-b from-navy-900 via-navy-900 to-[#06060d] border-l border-navy-500/20 z-50 lg:hidden shadow-[0_0_60px_rgba(0,0,0,0.5),-8px_0_40px_rgba(0,0,0,0.4)]"
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-navy-500/20">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-sm font-bold">
+                  <div className="w-8 h-8 rounded-lg bg-linear-to-br from-gold-500 to-gold-700 flex items-center justify-center font-display text-navy-900 text-sm font-bold">
                     P
                   </div>
                   <span className="font-display text-base font-bold">

@@ -24,9 +24,9 @@ export default function DemoBanner() {
           animate={{ opacity: 1, height: BANNER_HEIGHT }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed top-0 left-0 right-0 z-[60] overflow-hidden"
+          className="fixed top-0 left-0 right-0 z-60 overflow-hidden"
         >
-          <div className="flex items-center justify-center h-10 px-4 bg-gradient-to-r from-amber-500/10 via-gold-500/25 to-amber-500/10 border-b border-gold-500/30 backdrop-blur-sm">
+          <div className="flex items-center justify-center h-10 px-4 bg-linear-to-r from-amber-500/10 via-gold-500/25 to-amber-500/10 border-b border-gold-500/30 backdrop-blur-sm">
             <span className="text-xs sm:text-sm font-medium text-gold-300 tracking-wide">
               📋 Demo Site &mdash; This website is for demonstration purposes only.
             </span>

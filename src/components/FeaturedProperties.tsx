@@ -86,8 +86,8 @@ export default function FeaturedProperties() {
   return (
     <section id="featured" className="section-padding relative overflow-hidden scroll-mt-20">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-gold-500/3 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-160 h-160 bg-gold-500/3 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-120 h-120 bg-gold-500/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container-main relative">
         {/* Section Header */}

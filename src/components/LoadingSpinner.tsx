@@ -8,7 +8,7 @@ export default function LoadingSpinner() {
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center mx-auto mb-4"
+          className="w-16 h-16 rounded-2xl bg-linear-to-br from-gold-500 to-gold-700 flex items-center justify-center mx-auto mb-4"
         >
           <Building2 className="w-8 h-8 text-navy-900" />
         </motion.div>

@@ -100,7 +100,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
           >
             <div className="px-5 pb-5 space-y-4 border-t border-navy-500/20 pt-4">
               {/* Monthly Payment Result */}
-              <div className="bg-gradient-to-br from-gold-500/10 to-gold-600/5 rounded-xl p-4 text-center border border-gold-500/15">
+              <div className="bg-linear-to-br from-gold-500/10 to-gold-600/5 rounded-xl p-4 text-center border border-gold-500/15">
                 <div className="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">
                   Estimated Monthly Payment
                 </div>
