@@ -3,8 +3,8 @@
 /* ─── Custom Theme ─── */
 @theme {
   /* Fonts */
-  --font-display: "Playfair Display", serif;
-  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Poppins", sans-serif;
 
   /* Colors - Luxury Dark Theme with Gold Accents */
   --color-navy-900: #0a0a12;
