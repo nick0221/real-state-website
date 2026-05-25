@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, type ReactNode } from "react";
+import { createContext, useContext, useReducer, useEffect, type ReactNode } from "react";
 import type { Property } from "../data/properties";
+import { properties } from "../data/properties";
 
 interface CompareState {
   selected: Property[];
@@ -10,6 +11,7 @@ type CompareAction =
   | { type: "CLEAR" };
 
 const MAX_COMPARE = 3;
+const STORAGE_KEY = "prestige-estates-compare";
 
 function compareReducer(state: CompareState, action: CompareAction): CompareState {
   switch (action.type) {
@@ -32,6 +34,35 @@ function compareReducer(state: CompareState, action: CompareAction): CompareStat
   }
 }
 
+function loadFromStorage(): CompareState {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { selected: [] };
+
+    const ids: number[] = JSON.parse(raw);
+    if (!Array.isArray(ids)) return { selected: [] };
+
+    // Look up each saved ID — silently drops any that no longer exist in the data
+    const selected = ids
+      .map((id) => properties.find((p) => p.id === id))
+      .filter((p): p is Property => p !== undefined)
+      .slice(0, MAX_COMPARE);
+
+    return { selected };
+  } catch {
+    return { selected: [] };
+  }
+}
+
+function persistToStorage(state: CompareState) {
+  try {
+    const ids = state.selected.map((p) => p.id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  } catch {
+    // Storage full or unavailable — silently ignore
+  }
+}
+
 interface CompareContextValue {
   selected: Property[];
   toggleProperty: (property: Property) => void;
@@ -43,7 +74,12 @@ interface CompareContextValue {
 const CompareContext = createContext<CompareContextValue | null>(null);
 
 export function CompareProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(compareReducer, { selected: [] });
+  const [state, dispatch] = useReducer(compareReducer, null, loadFromStorage);
+
+  // Sync to localStorage whenever selection changes
+  useEffect(() => {
+    persistToStorage(state);
+  }, [state]);
 
   const toggleProperty = (property: Property) => {
     dispatch({ type: "TOGGLE", property });
