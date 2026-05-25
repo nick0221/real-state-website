@@ -99,13 +99,14 @@ export default function Navbar() {
   );
 
   return (
+    <>
     <motion.nav
       animate={{ y: hidden ? -100 : 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 max-lg:bg-navy-900/95 ${
         scrolled
           ? "bg-navy-900/95 backdrop-blur-xl max-lg:backdrop-blur-sm shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-          : "bg-transparent"
+          : "lg:bg-transparent"
       }`}
     >
       <div className="container-main flex items-center justify-between px-6 py-4">
@@ -168,6 +169,7 @@ export default function Navbar() {
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+    </motion.nav>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
@@ -261,6 +263,6 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 }
