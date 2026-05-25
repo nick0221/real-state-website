@@ -22,6 +22,7 @@ import {
 import { properties, agents } from "../data/properties";
 import { formatPrice } from "../utils/format";
 import MortgageCalculator from "./MortgageCalculator";
+import PropertyContactForm from "./PropertyContactForm";
 
 function generateFloorPlanSVG(beds: number, baths: number, sqft: number): string {
   const colors = {
@@ -483,6 +484,9 @@ export default function PropertyDetail() {
                       </button>
                     </div>
                   </motion.div>
+
+                  {/* Property Contact Form */}
+                  <PropertyContactForm property={property} agent={agent} />
 
                   {/* Mortgage Calculator */}
                   {property.type === "sale" && (
