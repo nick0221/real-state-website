@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { properties, agents } from "../data/properties";
 import { formatPrice } from "../utils/format";
+import MortgageCalculator from "./MortgageCalculator";
 
 function generateFloorPlanSVG(beds: number, baths: number, sqft: number): string {
   const colors = {
@@ -482,6 +483,11 @@ export default function PropertyDetail() {
                       </button>
                     </div>
                   </motion.div>
+
+                  {/* Mortgage Calculator */}
+                  {property.type === "sale" && (
+                    <MortgageCalculator price={property.price} />
+                  )}
 
                   {/* Similar Properties */}
                   {similarProperties.length > 0 && (
