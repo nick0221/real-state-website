@@ -31,6 +31,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -50,6 +51,33 @@ export default function Navbar() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Track active section via Intersection Observer
+  useEffect(() => {
+    const sectionIds = navLinks.map((l) => l.href.replace("#", ""));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      {
+        // Trigger zone: below navbar (-80px) to the middle of viewport
+        rootMargin: "-80px 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -98,17 +126,28 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="relative px-4 py-2 text-sm font-medium text-text-secondary hover:text-gold-500 transition-colors duration-300 group"
-            >
-              {link.label}
-              <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-gold-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.replace("#", "");
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group ${
+                  isActive
+                    ? "text-gold-500"
+                    : "text-text-secondary hover:text-gold-500"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gold-500 transition-transform duration-300 origin-left ${
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </a>
+            );
+          })}
           <div className="ml-4 pl-4 border-l border-navy-400">
             <a
               href="tel:+13105550142"
@@ -140,19 +179,26 @@ export default function Navbar() {
             className="fixed inset-0 bg-navy-900/98 z-40 lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-2xl font-display text-text-primary hover:text-gold-500 transition-colors cursor-pointer"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) => {
+                const isActive = activeSection === link.href.replace("#", "");
+                return (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`text-2xl font-display transition-colors cursor-pointer ${
+                      isActive
+                        ? "text-gold-500"
+                        : "text-text-primary hover:text-gold-500"
+                    }`}
+                  >
+                    {link.label}
+                  </motion.a>
+                );
+              })}
               <motion.a
                 href="tel:+13105550142"
                 initial={{ opacity: 0, y: 20 }}
