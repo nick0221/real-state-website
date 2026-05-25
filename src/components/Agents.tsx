@@ -58,7 +58,7 @@ export default function Agents() {
               </div>
 
               {/* Info */}
-              <h3 className="font-display text-lg font-bold text-text-primary group-hover:text-gold-500 transition-colors">
+              <h3 className="font-display text-lg font-semibold text-text-primary group-hover:text-gold-500 transition-colors">
                 {agent.name}
               </h3>
               <p className="text-gold-500 text-sm font-medium mt-1">

@@ -130,7 +130,7 @@ export default function PropertyContactForm({
             <MessageSquare className="w-4 h-4 text-gold-500" />
           </div>
           <div>
-            <h3 className="font-display text-base font-bold text-text-primary">
+            <h3 className="font-display text-base font-semibold text-text-primary">
               Send an Inquiry
             </h3>
             <p className="text-text-muted text-xs mt-0.5">
@@ -172,7 +172,7 @@ export default function PropertyContactForm({
                     <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-7 h-7 text-emerald-400" />
                     </div>
-                    <h4 className="font-display text-base font-bold text-text-primary mb-1">
+                    <h4 className="font-display text-base font-semibold text-text-primary mb-1">
                       Inquiry Sent!
                     </h4>
                     <p className="text-text-muted text-xs leading-relaxed mb-4">

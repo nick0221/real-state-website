@@ -89,7 +89,7 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="font-display text-lg font-bold text-text-primary mb-1 group-hover:text-gold-500 transition-colors">
+        <h3 className="font-display text-lg font-semibold text-text-primary mb-1 group-hover:text-gold-500 transition-colors">
           {property.title}
         </h3>
 

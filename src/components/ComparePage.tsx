@@ -187,7 +187,7 @@ export default function ComparePage() {
             <span className="text-gold-500 text-sm font-semibold tracking-widest uppercase">
               Comparison
             </span>
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-text-primary mt-2">
+            <h1 className="font-display text-3xl md:text-4xl font-semibold tracking-wide text-text-primary mt-2">
               Side-by-Side{" "}
               <span className="gradient-text">Property Analysis</span>
             </h1>
@@ -222,7 +222,7 @@ export default function ComparePage() {
                           </div>
                         </div>
                         <div className="p-3">
-                          <h3 className="font-display text-base font-bold text-text-primary mb-0.5">
+                          <h3 className="font-display text-base font-semibold text-text-primary mb-0.5">
                             {p.title}
                           </h3>
                           <p className="text-text-muted text-xs truncate">
@@ -313,7 +313,7 @@ export default function ComparePage() {
                   <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
                     <div>
-                      <h3 className="font-display text-xl font-bold text-white">
+                      <h3 className="font-display text-xl font-semibold text-white">
                         {p.title}
                       </h3>
                       <p className="text-text-muted text-xs">{p.address}</p>
@@ -387,7 +387,7 @@ export default function ComparePage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-12 hidden lg:block"
             >
-              <h2 className="font-display text-2xl font-bold text-text-primary mb-6">
+              <h2 className="font-display text-2xl font-semibold text-text-primary mb-6">
                 Features & Amenities
               </h2>
               <div className="overflow-x-auto">
@@ -451,7 +451,7 @@ export default function ComparePage() {
           {/* ─── Features Comparison (Mobile) ─── */}
           {selected.length >= 2 && (
             <div className="mt-10 lg:hidden">
-              <h2 className="font-display text-xl font-bold text-text-primary mb-4">
+              <h2 className="font-display text-xl font-semibold text-text-primary mb-4">
                 Features & Amenities
               </h2>
               <div className="space-y-6">

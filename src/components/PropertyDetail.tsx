@@ -268,12 +268,12 @@ export default function PropertyDetail() {
                           For {property.type === "sale" ? "Sale" : "Rent"}
                         </span>
                       </div>
-                      <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary">
+                      <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide text-text-primary">
                         {property.title}
                       </h1>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-display text-3xl md:text-4xl font-bold gradient-text">
+                      <div className="font-display text-3xl md:text-4xl font-semibold tracking-wide gradient-text">
                         {formatPrice(property.price, property.type)}
                       </div>
                     </div>
@@ -335,7 +335,7 @@ export default function PropertyDetail() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <h2 className="font-display text-2xl font-bold text-text-primary mb-4">
+                  <h2 className="font-display text-2xl font-semibold text-text-primary mb-4">
                     About This Property
                   </h2>
                   <p className="text-text-secondary leading-relaxed text-lg">
@@ -349,7 +349,7 @@ export default function PropertyDetail() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  <h2 className="font-display text-2xl font-bold text-text-primary mb-4">
+                  <h2 className="font-display text-2xl font-semibold text-text-primary mb-4">
                     Features & Amenities
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-3">
@@ -377,7 +377,7 @@ export default function PropertyDetail() {
                   id="floor-plan"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-display text-2xl font-bold text-text-primary">
+                    <h2 className="font-display text-2xl font-semibold text-text-primary">
                       Floor Plan
                     </h2>
                     <button
@@ -438,7 +438,7 @@ export default function PropertyDetail() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="bg-navy-800/50 border border-navy-500/20 rounded-2xl p-6 gold-glow"
                   >
-                    <h3 className="font-display text-lg font-bold text-text-primary mb-4">
+                    <h3 className="font-display text-lg font-semibold text-text-primary mb-4">
                       Listed by
                     </h3>
 
@@ -501,7 +501,7 @@ export default function PropertyDetail() {
                       transition={{ duration: 0.5, delay: 0.4 }}
                       className="bg-navy-800/50 border border-navy-500/20 rounded-2xl p-6"
                     >
-                      <h3 className="font-display text-lg font-bold text-text-primary mb-4">
+                      <h3 className="font-display text-lg font-semibold text-text-primary mb-4">
                         Similar Properties
                       </h3>
                       <div className="space-y-3">

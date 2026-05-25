@@ -338,7 +338,7 @@ export default function FeaturedProperties() {
               <div className="w-20 h-20 rounded-2xl bg-navy-800/50 border border-navy-500/20 flex items-center justify-center mb-6">
                 <SearchX className="w-8 h-8 text-navy-300" />
               </div>
-              <h3 className="font-display text-xl font-bold text-text-primary mb-2">
+              <h3 className="font-display text-xl font-semibold text-text-primary mb-2">
                 No Properties Found
               </h3>
               <p className="text-text-muted text-sm max-w-md mb-6">

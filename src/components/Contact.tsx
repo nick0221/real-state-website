@@ -141,7 +141,7 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="bg-navy-800/50 border border-navy-500/20 rounded-2xl p-8 gold-glow"
             >
-              <h3 className="font-display text-2xl font-bold text-text-primary mb-6">
+              <h3 className="font-display text-2xl font-semibold text-text-primary mb-6">
                 Send Us a Message
               </h3>
 
