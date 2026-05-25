@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useState } from "react";
 
 const STORAGE_KEY = "demo-banner-dismissed";
 export const BANNER_HEIGHT = 40;
@@ -28,7 +28,7 @@ export default function DemoBanner() {
         >
           <div className="flex items-center justify-center h-10 px-4 bg-linear-to-r from-amber-500/10 via-gold-500/25 to-amber-500/10 border-b border-gold-500/30 backdrop-blur-sm">
             <span className="text-xs sm:text-sm font-medium text-gold-300 tracking-wide">
-              📋 Demo Site &mdash; This website is for demonstration purposes only.
+              Demo Site &mdash; This website is for demonstration purposes only.
             </span>
             <button
               onClick={dismiss}
