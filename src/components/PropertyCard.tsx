@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Bed, Bath, Maximize, MapPin, Heart } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, BarChart3, Check } from "lucide-react";
 import type { Property } from "../data/properties";
 import { formatPrice } from "../utils/format";
+import { useCompare } from "../context/CompareContext";
 
 interface PropertyCardProps {
   property: Property;
@@ -11,6 +12,8 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property, index }: PropertyCardProps) {
   const navigate = useNavigate();
+  const { toggleProperty, isSelected, isFull } = useCompare();
+  const selected = isSelected(property.id);
 
   return (
     <motion.div
@@ -52,10 +55,29 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
           </span>
         </div>
 
-        {/* Favorite Button */}
-        <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-navy-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-gold-500/20">
-          <Heart className="w-4 h-4 text-text-primary" />
-        </button>
+        {/* Compare Toggle */}
+        <div className="absolute top-4 right-4 flex gap-2">
+          {/* Compare checkbox */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleProperty(property);
+            }}
+            className={`w-9 h-9 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-300 cursor-pointer ${
+              selected
+                ? "bg-gold-500 text-navy-900 shadow-lg shadow-gold-500/30"
+                : "bg-navy-900/60 text-text-primary hover:bg-gold-500/20 hover:text-gold-500 opacity-0 group-hover:opacity-100"
+            }`}
+            aria-label={selected ? `Remove ${property.title} from comparison` : `Add ${property.title} to comparison`}
+            title={isFull && !selected ? "Max 3 properties to compare" : "Compare"}
+          >
+            {selected ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <BarChart3 className="w-3.5 h-3.5" />
+            )}
+          </button>
+        </div>
 
         {/* Price on image */}
         <div className="absolute bottom-4 left-4 right-4">

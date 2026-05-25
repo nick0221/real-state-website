@@ -9,6 +9,9 @@ import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import PropertyDetail from "./components/PropertyDetail";
+import ComparePage from "./components/ComparePage";
+import CompareBar from "./components/CompareBar";
+import { CompareProvider } from "./context/CompareContext";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -16,6 +19,15 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+}
+
+function HomePageWithCompare() {
+  return (
+    <>
+      <HomePage />
+      <CompareBar />
+    </>
+  );
 }
 
 function HomePage() {
@@ -62,13 +74,16 @@ function HomePage() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/property/:id" element={<PropertyDetail />} />
-        </Routes>
-      </div>
+      <CompareProvider>
+        <ScrollToTop />
+        <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
+          <Routes>
+            <Route path="/" element={<HomePageWithCompare />} />
+            <Route path="/property/:id" element={<PropertyDetail />} />
+            <Route path="/compare" element={<ComparePage />} />
+          </Routes>
+        </div>
+      </CompareProvider>
     </BrowserRouter>
   );
 }
