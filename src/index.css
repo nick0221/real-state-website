@@ -45,6 +45,10 @@
   --color-border: #2a2a4a;
   --color-border-light: #3a3a5c;
 
+  /* Restore v3 visual values for design consistency */
+  --blur-sm: 4px;
+  --drop-shadow-lg: 0 4px 3px rgb(0 0 0 / 0.07), 0 2px 2px rgb(0 0 0 / 0.06);
+
   /* Animations */
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
