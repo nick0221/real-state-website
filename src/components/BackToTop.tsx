@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp } from "lucide-react";
 
@@ -6,10 +6,21 @@ const VISIBLE_THRESHOLD = 500;
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > VISIBLE_THRESHOLD);
+      const currentY = window.scrollY;
+
+      if (currentY > VISIBLE_THRESHOLD) {
+        // Show when scrolling down (navbar hidden), hide when scrolling up (navbar visible)
+        const scrollingDown = currentY > lastScrollY.current;
+        setVisible(scrollingDown);
+      } else {
+        setVisible(false);
+      }
+
+      lastScrollY.current = currentY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
