@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FeaturedProperties from "./components/FeaturedProperties";
@@ -7,10 +8,18 @@ import Agents from "./components/Agents";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import PropertyDetail from "./components/PropertyDetail";
 
-function App() {
+function ScrollToTop() {
+  const { pathname } = useLocation();
   useEffect(() => {
-    // Smooth scroll handler for anchor links
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function HomePage() {
+  useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const link = target.closest<HTMLAnchorElement>("a[href^='#']");
@@ -22,7 +31,8 @@ function App() {
           if (element) {
             e.preventDefault();
             const offset = 80;
-            const top = element.getBoundingClientRect().top + window.scrollY - offset;
+            const top =
+              element.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior: "smooth" });
           }
         }
@@ -34,7 +44,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -45,7 +55,21 @@ function App() {
         <Contact />
       </main>
       <Footer />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/property/:id" element={<PropertyDetail />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Bed, Bath, Maximize, MapPin, Heart } from "lucide-react";
 import type { Property } from "../data/properties";
+import { formatPrice } from "../utils/format";
 
 interface PropertyCardProps {
   property: Property;
@@ -8,15 +10,7 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ property, index }: PropertyCardProps) {
-  const formatPrice = (price: number, type: string) => {
-    if (type === "rent") {
-      return `$${price.toLocaleString()}/mo`;
-    }
-    if (price >= 1_000_000) {
-      return `$${(price / 1_000_000).toFixed(1)}M`;
-    }
-    return `$${(price / 1_000).toFixed(0)}K`;
-  };
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -24,7 +18,11 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden hover:border-gold-500/30 transition-all duration-500"
+      onClick={() => navigate(`/property/${property.id}`)}
+      className="group relative bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden hover:border-gold-500/30 transition-all duration-500 cursor-pointer"
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && navigate(`/property/${property.id}`)}
     >
       {/* Image Container */}
       <div className="relative overflow-hidden aspect-[4/3]">
@@ -95,6 +93,10 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
         </div>
 
         <motion.button
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/property/${property.id}`);
+          }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="w-full mt-3 py-2.5 rounded-xl bg-navy-700/50 border border-navy-400/30 text-text-secondary text-sm font-medium hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all duration-300 cursor-pointer"
