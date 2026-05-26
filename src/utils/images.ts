@@ -35,38 +35,3 @@ export function optimizeUnsplash(url: string): OptimizedImage {
     webpSrcSet,
   };
 }
-
-/**
- * Props for a responsive <img> element with WebP <picture> support.
- */
-export interface ImageProps {
-  src: string;
-  alt: string;
-  className?: string;
-  /** Set "high" for LCP images (hero), "lazy" for below-fold images */
-  loading?: "lazy" | "eager";
-  fetchPriority?: "high" | "low" | "auto";
-  decoding?: "async" | "sync" | "auto";
-}
-
-/**
- * Builds className and style props for an optimized responsive image.
- * For maximum performance, render a <picture> element with <source> for WebP
- * and fallback <img>. See the `OptimizedImage` component below.
- */
-export function imageProps(
-  url: string,
-  alt: string,
-  opts?: { loading?: "lazy" | "eager"; fetchPriority?: "high" | "low" | "auto" }
-): { opt: OptimizedImage; imgProps: ImageProps } {
-  const opt = optimizeUnsplash(url);
-  return {
-    opt,
-    imgProps: {
-      src: opt.src,
-      alt,
-      loading: opts?.loading ?? "lazy",
-      fetchPriority: opts?.fetchPriority ?? "auto",
-    },
-  };
-}
