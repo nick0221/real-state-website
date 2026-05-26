@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 import { testimonials } from "../data/properties";
 
 export default function Testimonials() {
@@ -88,10 +89,11 @@ export default function Testimonials() {
 
                   {/* Author */}
                   <div className="flex items-center gap-4">
-                    <img
+                    <OptimizedImage
                       src={t.image}
                       alt={t.name}
                       className="w-14 h-14 rounded-full object-cover border-2 border-gold-500/30"
+                      loading="lazy"
                     />
                     <div>
                       <div className="font-semibold text-text-primary">

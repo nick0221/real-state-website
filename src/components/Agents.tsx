@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, Award } from "lucide-react";
 import { agents } from "../data/properties";
+import OptimizedImage from "./OptimizedImage";
 
 export default function Agents() {
   return (
@@ -47,10 +48,11 @@ export default function Agents() {
               {/* Avatar */}
               <div className="relative mx-auto mb-5 w-28 h-28">
                 <div className="w-full h-full rounded-full overflow-hidden border-2 border-navy-400/30 group-hover:border-gold-500/50 transition-all duration-500">
-                  <img
+                  <OptimizedImage
                     src={agent.image}
                     alt={agent.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
                 {/* Decorative ring */}

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Bed, Bath, Maximize, MapPin, BarChart3, Check } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 import type { Property } from "../data/properties";
 import { formatPrice } from "../utils/format";
 import { useCompare } from "../context/CompareContext";
@@ -29,10 +30,11 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
     >
       {/* Image Container */}
       <div className="relative overflow-hidden aspect-4/3">
-        <img
+        <OptimizedImage
           src={property.image}
           alt={property.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
         />
         {/* Overlays */}
         <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

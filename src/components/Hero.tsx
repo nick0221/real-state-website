@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, MapPin, Home, TrendingUp } from "lucide-react";
+import OptimizedImage from "./OptimizedImage";
 
 const stats = [
   { label: "Properties Listed", value: "1,200+" },
@@ -12,17 +14,29 @@ const stats = [
 const propertyTypes = ["All", "Villa", "Penthouse", "Estate", "Loft", "Condo"];
 
 export default function Hero() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+  const [selectedType, setSelectedType] = useState(searchParams.get("type") || "All");
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("search", searchQuery.trim());
+    if (selectedType !== "All") params.set("type", selectedType);
+    const qs = params.toString();
+    navigate(qs ? `/?${qs}#featured` : "/#featured");
+  };
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Layer */}
       <div className="absolute inset-0">
-        <img
+        <OptimizedImage
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85"
           alt="Luxury estate"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
@@ -86,9 +100,10 @@ export default function Hero() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search by city, address, or ZIP..."
                       className="w-full pl-12 pr-4 py-3.5 bg-navy-700/50 border border-navy-400/30 rounded-xl text-text-primary placeholder-text-muted focus:outline-none focus:border-gold-500/50 transition-colors"
+                      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     />
                   </div>
-                  <button className="btn-primary">
+                  <button onClick={handleSearch} className="btn-primary">
                     <Search className="w-5 h-5" />
                     Search
                   </button>
@@ -141,10 +156,12 @@ export default function Hero() {
                 className="relative"
               >
                 <div className="aspect-3/4 rounded-2xl overflow-hidden gold-glow">
-                  <img
+                  <OptimizedImage
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85"
                     alt="Luxury home"
                     className="w-full h-full object-cover"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-navy-900/60 via-transparent to-transparent" />
                 </div>

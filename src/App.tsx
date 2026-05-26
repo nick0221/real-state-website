@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import CompareBar from "./components/CompareBar";
 import BackToTop from "./components/BackToTop";
 import LoadingSpinner from "./components/LoadingSpinner";
+import ErrorBoundary from "./components/ErrorBoundary";
 import DemoBanner, { BANNER_HEIGHT } from "./components/DemoBanner";
 import { CompareProvider } from "./context/CompareContext";
 
@@ -67,14 +68,28 @@ function HomePage() {
     <>
       <Navbar />
       <main>
-        <Hero />
-        <FeaturedProperties />
-        <Services />
-        <Agents />
-        <Testimonials />
-        <Contact />
+        <ErrorBoundary>
+          <Hero />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <FeaturedProperties />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Services />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Agents />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Testimonials />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Contact />
+        </ErrorBoundary>
       </main>
-      <Footer />
+      <ErrorBoundary>
+        <Footer />
+      </ErrorBoundary>
     </>
   );
 }
@@ -86,13 +101,15 @@ function App() {
         <ScrollToTop />
         <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
           <DemoBanner />
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route path="/" element={<HomePageWithCompare />} />
-              <Route path="/property/:id" element={<PropertyDetail />} />
-              <Route path="/compare" element={<ComparePage />} />
-            </Routes>
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<HomePageWithCompare />} />
+                <Route path="/property/:id" element={<PropertyDetail />} />
+                <Route path="/compare" element={<ComparePage />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
           <BackToTop />
         </div>
       </CompareProvider>

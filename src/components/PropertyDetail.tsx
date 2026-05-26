@@ -23,6 +23,7 @@ import { properties, agents } from "../data/properties";
 import { formatPrice } from "../utils/format";
 import MortgageCalculator from "./MortgageCalculator";
 import PropertyContactForm from "./PropertyContactForm";
+import OptimizedImage from "./OptimizedImage";
 
 function generateFloorPlanSVG(beds: number, baths: number, sqft: number): string {
   const colors = {
@@ -164,16 +165,22 @@ export default function PropertyDetail() {
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-21/10 max-h-[70vh] gold-glow">
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={activeImage}
-                  src={gallery[activeImage]}
-                  alt={`${property.title} — photo ${activeImage + 1}`}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="w-full h-full object-cover"
-                />
+                  className="w-full h-full"
+                >
+                  <OptimizedImage
+                    src={gallery[activeImage]}
+                    alt={`${property.title} — photo ${activeImage + 1}`}
+                    className="w-full h-full object-cover"
+                    loading={activeImage === 0 ? "eager" : "lazy"}
+                    fetchPriority={activeImage === 0 ? "high" : "auto"}
+                  />
+                </motion.div>
               </AnimatePresence>
 
               {/* Gradient overlay */}
@@ -226,10 +233,11 @@ export default function PropertyDetail() {
                         : "border-transparent opacity-60 hover:opacity-90"
                     }`}
                   >
-                    <img
+                    <OptimizedImage
                       src={img}
                       alt={`Thumbnail ${i + 1}`}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </button>
                 ))}
@@ -443,10 +451,11 @@ export default function PropertyDetail() {
                     </h3>
 
                     <div className="flex items-center gap-4 mb-4">
-                      <img
+                      <OptimizedImage
                         src={agent.image}
                         alt={agent.name}
                         className="w-16 h-16 rounded-full object-cover border-2 border-gold-500/30"
+                        loading="lazy"
                       />
                       <div>
                         <div className="font-semibold text-text-primary">
@@ -511,10 +520,11 @@ export default function PropertyDetail() {
                             onClick={() => navigate(`/property/${sp.id}`)}
                             className="flex items-center gap-3 w-full p-2 rounded-xl hover:bg-navy-700/50 transition-colors text-left cursor-pointer"
                           >
-                            <img
+                            <OptimizedImage
                               src={sp.image}
                               alt={sp.title}
                               className="w-16 h-12 rounded-lg object-cover shrink-0"
+                              loading="lazy"
                             />
                             <div className="min-w-0">
                               <div className="text-sm font-medium text-text-primary truncate">

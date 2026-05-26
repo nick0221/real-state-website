@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -44,15 +45,52 @@ const typeOptions = [
   { label: "For Rent", value: "rent" },
 ];
 
+const typeToValue: Record<string, string> = {
+  villa: "sale",
+  penthouse: "sale",
+  estate: "sale",
+  loft: "rent",
+  condo: "rent",
+};
+
 export default function FeaturedProperties() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [propertyType, setPropertyType] = useState("all");
   const [priceRangeIndex, setPriceRangeIndex] = useState(0);
   const [minBeds, setMinBeds] = useState(0);
   const [minBaths, setMinBaths] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  // Sync URL search params into filter state on mount / param change
+  useEffect(() => {
+    const search = searchParams.get("search");
+    const type = searchParams.get("type");
+
+    if (search) setSearchText(search.toLowerCase());
+    else setSearchText("");
+
+    if (type && typeToValue[type.toLowerCase()]) {
+      setPropertyType(typeToValue[type.toLowerCase()]);
+      setShowFilters(true);
+    } else {
+      setPropertyType("all");
+    }
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     return properties.filter((p) => {
+      // Text search (title, address, description)
+      if (
+        searchText &&
+        !p.title.toLowerCase().includes(searchText) &&
+        !p.address.toLowerCase().includes(searchText) &&
+        !p.description.toLowerCase().includes(searchText)
+      ) {
+        return false;
+      }
+
       // Property type
       if (propertyType !== "all" && p.type !== propertyType) return false;
 
@@ -68,19 +106,22 @@ export default function FeaturedProperties() {
 
       return true;
     });
-  }, [propertyType, priceRangeIndex, minBeds, minBaths]);
+  }, [propertyType, priceRangeIndex, minBeds, minBaths, searchText]);
 
   const hasActiveFilters =
+    searchText !== "" ||
     propertyType !== "all" ||
     priceRangeIndex !== 0 ||
     minBeds !== 0 ||
     minBaths !== 0;
 
   const clearFilters = () => {
+    setSearchText("");
     setPropertyType("all");
     setPriceRangeIndex(0);
     setMinBeds(0);
     setMinBaths(0);
+    navigate("/", { replace: true });
   };
 
   return (
@@ -273,6 +314,14 @@ export default function FeaturedProperties() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-wrap items-center gap-2 mb-8"
           >
+            {searchText && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-xs">
+                "{searchText}"
+                <button onClick={() => { setSearchText(""); navigate("/", { replace: true }); }} className="hover:text-gold-300 cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
             {propertyType !== "all" && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-xs">
                 {propertyType === "sale" ? "For Sale" : "For Rent"}

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useCompare } from "../context/CompareContext";
 import { formatPrice } from "../utils/format";
+import OptimizedImage from "./OptimizedImage";
 
 type RowDef = {
   label: string;
@@ -209,10 +210,11 @@ export default function ComparePage() {
                     >
                       <div className="bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden gold-glow">
                         <div className="relative aspect-4/3 overflow-hidden">
-                          <img
+                          <OptimizedImage
                             src={p.image}
                             alt={p.title}
                             className="w-full h-full object-cover"
+                            loading="lazy"
                           />
                           <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 to-transparent" />
                           <div className="absolute bottom-3 left-3 right-3">
@@ -305,10 +307,11 @@ export default function ComparePage() {
                 className="bg-navy-800/50 border border-navy-500/20 rounded-2xl overflow-hidden gold-glow"
               >
                 <div className="relative aspect-video overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={p.image}
                     alt={p.title}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
