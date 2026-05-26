@@ -55,7 +55,7 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Carousel */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
           <div className="relative min-h-[300px] flex items-center">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -83,7 +83,10 @@ export default function Testimonials() {
                   </div>
 
                   {/* Content */}
-                  <blockquote className="font-display text-lg md:text-2xl text-text-primary leading-relaxed mb-8 italic">
+                  <blockquote
+                    className="font-display text-lg md:text-2xl text-text-primary leading-relaxed mb-8 italic"
+                    aria-roledescription="testimonial"
+                  >
                     &ldquo;{t.content}&rdquo;
                   </blockquote>
 
