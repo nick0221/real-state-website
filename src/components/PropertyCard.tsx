@@ -58,6 +58,7 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
         </div>
 
         {/* Status Badge */}
+        <div className="absolute top-4 left-4 flex gap-2">
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
               property.status === "available"
@@ -76,7 +77,6 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
 
         {/* Compare Toggle */}
         <div className="absolute top-4 right-4 flex gap-2">
-          {/* Compare checkbox */}
           <button
             onClick={(e) => {
               e.stopPropagation();

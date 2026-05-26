@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -21,8 +21,8 @@ import {
 } from "lucide-react";
 import { properties, agents } from "../data/properties";
 import { formatPrice } from "../utils/format";
-import MortgageCalculator from "./MortgageCalculator";
-import PropertyContactForm from "./PropertyContactForm";
+const MortgageCalculator = lazy(() => import("./MortgageCalculator"));
+const PropertyContactForm = lazy(() => import("./PropertyContactForm"));
 import OptimizedImage from "./OptimizedImage";
 
 function generateFloorPlanSVG(beds: number, baths: number, sqft: number): string {
@@ -495,11 +495,15 @@ export default function PropertyDetail() {
                   </motion.div>
 
                   {/* Property Contact Form */}
-                  <PropertyContactForm property={property} agent={agent} />
+                  <Suspense fallback={<div className="h-96 bg-navy-800/30 rounded-2xl animate-pulse" />}>
+                    <PropertyContactForm property={property} agent={agent} />
+                  </Suspense>
 
                   {/* Mortgage Calculator */}
                   {property.type === "sale" && (
-                    <MortgageCalculator price={property.price} />
+                    <Suspense fallback={<div className="h-64 bg-navy-800/30 rounded-2xl animate-pulse" />}>
+                      <MortgageCalculator price={property.price} />
+                    </Suspense>
                   )}
 
                   {/* Similar Properties */}
