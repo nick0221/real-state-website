@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "../utils/motion";
 import { Search, MapPin, Home, TrendingUp } from "lucide-react";
-import OptimizedImage from "./OptimizedImage";
+
 
 const stats = [
   { label: "Properties Listed", value: "1,200+" },
@@ -24,6 +24,25 @@ export default function Hero() {
   const backgroundScale = useTransform(scrollY, [0, 600], [1, 1.1]);
   const overlayOpacity = useTransform(scrollY, [0, 400], [1, 0.7]);
 
+  // Defer parallax bindings until after initial paint so the critical
+  // rendering path stays free of scroll-listener / transform overhead.
+  const [parallaxReady, setParallaxReady] = useState(false);
+
+  useEffect(() => {
+    // Use requestIdleCallback when available (Chromium), fall back to setTimeout
+    const id = window.requestIdleCallback
+      ? window.requestIdleCallback(
+          () => setParallaxReady(true),
+          { timeout: 500 },
+        )
+      : window.setTimeout(() => setParallaxReady(true), 300);
+    return () => {
+      window.requestIdleCallback
+        ? window.cancelIdleCallback(id)
+        : clearTimeout(id);
+    };
+  }, []);
+
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery.trim()) params.set("search", searchQuery.trim());
@@ -36,20 +55,35 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Layer - Parallax */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          style={{ y: backgroundY, scale: backgroundScale }}
+        <m.div
+          style={parallaxReady ? { y: backgroundY, scale: backgroundScale } : undefined}
           className="absolute inset-0"
         >
-          <OptimizedImage
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85"
-            alt="Luxury estate"
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
-        </motion.div>
+          <picture>
+            <source
+              srcSet="/images/hero-bg-640.webp 640w, /images/hero-bg-1200.webp 1200w, /images/hero-bg-1920.webp 1920w"
+              type="image/webp"
+              sizes="100vw"
+            />
+            <source
+              srcSet="/images/hero-bg-1200.jpg 1200w"
+              type="image/jpeg"
+              sizes="100vw"
+            />
+            <img
+              src="/images/hero-bg-1200.jpg"
+              alt="Luxury estate"
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </picture>
+        </m.div>
         {/* Gradient Overlays */}
-        <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
+        <m.div
+          style={parallaxReady ? { opacity: overlayOpacity } : undefined}
+          className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90"
+        />
         <div className="absolute inset-0 bg-linear-to-r from-navy-900/40 to-transparent" />
         {/* Decorative gradient orb */}
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-[120px]" />
@@ -61,7 +95,7 @@ export default function Hero() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -70,9 +104,9 @@ export default function Hero() {
                   <TrendingUp className="w-4 h-4" />
                   Premium Real Estate Services
                 </span>
-              </motion.div>
+              </m.div>
 
-              <motion.h1
+              <m.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
@@ -81,9 +115,9 @@ export default function Hero() {
                 Discover Your
                 <br />
                 <span className="gradient-text">Dream Estate</span>
-              </motion.h1>
+              </m.h1>
 
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
@@ -92,10 +126,10 @@ export default function Hero() {
                 Curating exceptional properties for discerning clients worldwide.
                 Experience real estate reimagined with precision, passion, and
                 unparalleled expertise.
-              </motion.p>
+              </m.p>
 
               {/* Search Bar */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
@@ -135,10 +169,10 @@ export default function Hero() {
                     </button>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* Stats */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.8 }}
@@ -154,29 +188,41 @@ export default function Hero() {
                     </div>
                   </div>
                 ))}
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Right: Decorative (hidden on mobile) */}
             <div className="hidden lg:block relative">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
                 className="relative"
               >
                 <div className="aspect-3/4 rounded-2xl overflow-hidden gold-glow">
-                  <OptimizedImage
-                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85"
-                    alt="Luxury home"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    fetchPriority="high"
-                  />
+                  <picture>
+                    <source
+                      srcSet="/images/hero-deco-400.webp 400w, /images/hero-deco-800.webp 800w"
+                      type="image/webp"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                    <source
+                      srcSet="/images/hero-deco-800.jpg 800w"
+                      type="image/jpeg"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                    <img
+                      src="/images/hero-deco-800.jpg"
+                      alt="Luxury home"
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                      fetchpriority="high"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-linear-to-t from-navy-900/60 via-transparent to-transparent" />
                 </div>
                 {/* Floating badge */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 1.2 }}
@@ -193,15 +239,15 @@ export default function Hero() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
@@ -210,14 +256,14 @@ export default function Hero() {
         <span className="text-text-muted text-xs tracking-widest uppercase">
           Scroll
         </span>
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="w-5 h-8 rounded-full border border-navy-300/30 flex items-start justify-center p-1.5"
         >
           <div className="w-1 h-2 rounded-full bg-gold-500" />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

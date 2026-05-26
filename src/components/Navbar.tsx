@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import { Menu, X, Phone } from "lucide-react";
 import { BANNER_HEIGHT } from "./DemoBanner";
 
@@ -125,7 +125,7 @@ export default function Navbar() {
 
   return (
     <>
-    <motion.nav
+    <m.nav
       animate={{ y: hidden ? -(100 + bannerOffset) : bannerOffset }}
       transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 max-lg:bg-navy-900/95 ${
@@ -194,14 +194,14 @@ export default function Navbar() {
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
-    </motion.nav>
+    </m.nav>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -211,7 +211,7 @@ export default function Navbar() {
             />
 
             {/* Drawer Panel */}
-            <motion.div
+            <m.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -243,7 +243,7 @@ export default function Navbar() {
                 {navLinks.map((link, i) => {
                   const isActive = activeSection === link.href.replace("#", "");
                   return (
-                    <motion.a
+                    <m.a
                       key={link.label}
                       href={link.href}
                       initial={{ opacity: 0, x: 20 }}
@@ -265,7 +265,7 @@ export default function Navbar() {
                         }`}
                       />
                       {link.label}
-                    </motion.a>
+                    </m.a>
                   );
                 })}
               </nav>
@@ -284,7 +284,7 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>

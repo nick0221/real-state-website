@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "../utils/motion";
 import { Phone, Mail, Award } from "lucide-react";
 import { agents } from "../data/properties";
 import OptimizedImage from "./OptimizedImage";
@@ -11,7 +11,7 @@ export default function Agents() {
 
       <div className="container-main relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -29,12 +29,12 @@ export default function Agents() {
             Seasoned professionals dedicated to delivering exceptional results
             through market expertise and personalized service.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Agents Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {agents.map((agent, index) => (
-            <motion.div
+            <m.div
               key={agent.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export default function Agents() {
                   Email
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

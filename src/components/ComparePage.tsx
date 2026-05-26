@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "../utils/motion";
 import {
   ArrowLeft,
   Bed,
@@ -179,7 +179,7 @@ export default function ComparePage() {
       <main className="pt-20 pb-12 px-6">
         <div className="container-main">
           {/* Title */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -195,7 +195,7 @@ export default function ComparePage() {
             <p className="text-text-muted text-sm mt-2">
               Comparing {selected.length} properties
             </p>
-          </motion.div>
+          </m.div>
 
           {/* ─── Desktop Table ─── */}
           <div className="hidden lg:block overflow-x-auto">
@@ -253,7 +253,7 @@ export default function ComparePage() {
               </thead>
               <tbody>
                 {rows.map((row, i) => (
-                  <motion.tr
+                  <m.tr
                     key={row.label}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -291,7 +291,7 @@ export default function ComparePage() {
                         )}
                       </td>
                     ))}
-                  </motion.tr>
+                  </m.tr>
                 ))}
               </tbody>
             </table>
@@ -300,7 +300,7 @@ export default function ComparePage() {
           {/* ─── Mobile Cards ─── */}
           <div className="lg:hidden space-y-6">
             {selected.map((p) => (
-              <motion.div
+              <m.div
                 key={p.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -378,13 +378,13 @@ export default function ComparePage() {
                     View Details
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           {/* ─── Features Comparison (Desktop) ─── */}
           {selected.length >= 2 && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -415,7 +415,7 @@ export default function ComparePage() {
                         new Set(selected.flatMap((p) => p.features))
                       );
                       return allFeatures.map((feature, i) => (
-                        <motion.tr
+                        <m.tr
                           key={feature}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -442,13 +442,13 @@ export default function ComparePage() {
                               </td>
                             );
                           })}
-                        </motion.tr>
+                        </m.tr>
                       ));
                     })()}
                   </tbody>
                 </table>
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* ─── Features Comparison (Mobile) ─── */}
@@ -484,7 +484,7 @@ export default function ComparePage() {
           )}
 
           {/* CTA */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -497,7 +497,7 @@ export default function ComparePage() {
               <ArrowLeft className="w-4 h-4" />
               Browse More Properties
             </button>
-          </motion.div>
+          </m.div>
         </div>
       </main>
     </div>

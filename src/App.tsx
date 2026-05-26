@@ -1,5 +1,6 @@
 import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { LazyMotion, domAnimation } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FeaturedProperties from "./components/FeaturedProperties";
@@ -98,6 +99,7 @@ function App() {
   return (
     <BrowserRouter>
       <CompareProvider>
+        <LazyMotion features={domAnimation}>
         <ScrollToTop />
         <div className="min-h-screen bg-navy-900 text-text-primary selection:bg-gold-500/30 selection:text-text-primary">
           <DemoBanner />
@@ -112,6 +114,7 @@ function App() {
           </ErrorBoundary>
           <BackToTop />
         </div>
+        </LazyMotion>
       </CompareProvider>
     </BrowserRouter>
   );

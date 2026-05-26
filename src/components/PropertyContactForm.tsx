@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import {
   Send,
   CheckCircle2,
@@ -113,7 +113,7 @@ export default function PropertyContactForm({
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.25 }}
@@ -138,19 +138,19 @@ export default function PropertyContactForm({
             </p>
           </div>
         </div>
-        <motion.div
+        <m.div
           animate={{ rotate: expanded ? 180 : 0 }}
           transition={{ duration: 0.3 }}
           className="text-text-muted"
         >
           <ChevronDown className="w-5 h-5" />
-        </motion.div>
+        </m.div>
       </button>
 
       {/* Form Body */}
       <AnimatePresence>
         {expanded && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -161,7 +161,7 @@ export default function PropertyContactForm({
               <AnimatePresence mode="wait">
                 {submitted ? (
                   /* ─── Success State ─── */
-                  <motion.div
+                  <m.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -197,10 +197,10 @@ export default function PropertyContactForm({
                     >
                       Send another inquiry
                     </button>
-                  </motion.div>
+                  </m.div>
                 ) : (
                   /* ─── Form ─── */
-                  <motion.form
+                  <m.form
                     key="form"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -249,13 +249,13 @@ export default function PropertyContactForm({
                         }`}
                       />
                       {errors.name && (
-                        <motion.p
+                        <m.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="text-red-400 text-[11px] mt-1"
                         >
                           {errors.name}
-                        </motion.p>
+                        </m.p>
                       )}
                     </div>
 
@@ -277,13 +277,13 @@ export default function PropertyContactForm({
                         }`}
                       />
                       {errors.email && (
-                        <motion.p
+                        <m.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="text-red-400 text-[11px] mt-1"
                         >
                           {errors.email}
-                        </motion.p>
+                        </m.p>
                       )}
                     </div>
 
@@ -308,13 +308,13 @@ export default function PropertyContactForm({
                         }`}
                       />
                       {errors.phone && (
-                        <motion.p
+                        <m.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="text-red-400 text-[11px] mt-1"
                         >
                           {errors.phone}
-                        </motion.p>
+                        </m.p>
                       )}
                     </div>
 
@@ -338,18 +338,18 @@ export default function PropertyContactForm({
                         }`}
                       />
                       {errors.message && (
-                        <motion.p
+                        <m.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="text-red-400 text-[11px] mt-1"
                         >
                           {errors.message}
-                        </motion.p>
+                        </m.p>
                       )}
                     </div>
 
                     {/* Submit */}
-                    <motion.button
+                    <m.button
                       type="submit"
                       disabled={sending}
                       whileHover={{ scale: 1.01 }}
@@ -358,7 +358,7 @@ export default function PropertyContactForm({
                     >
                       {sending ? (
                         <>
-                          <motion.div
+                          <m.div
                             animate={{ rotate: 360 }}
                             transition={{
                               duration: 1,
@@ -367,7 +367,7 @@ export default function PropertyContactForm({
                             }}
                           >
                             <Send className="w-4 h-4" />
-                          </motion.div>
+                          </m.div>
                           Sending...
                         </>
                       ) : (
@@ -376,19 +376,19 @@ export default function PropertyContactForm({
                           Send Inquiry
                         </>
                       )}
-                    </motion.button>
+                    </m.button>
 
                     <p className="text-[10px] text-navy-400 text-center">
                       Your information will be shared with {agent.name} at
                       Prestige Estates.
                     </p>
-                  </motion.form>
+                  </m.form>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 }

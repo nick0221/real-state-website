@@ -1,6 +1,6 @@
 import { useState, useMemo, lazy, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import {
   ArrowLeft,
   Bed,
@@ -165,7 +165,7 @@ export default function PropertyDetail() {
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-21/10 max-h-[70vh] gold-glow">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={activeImage}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -180,7 +180,7 @@ export default function PropertyDetail() {
                     loading={activeImage === 0 ? "eager" : "lazy"}
                     fetchPriority={activeImage === 0 ? "high" : "auto"}
                   />
-                </motion.div>
+                </m.div>
               </AnimatePresence>
 
               {/* Gradient overlay */}
@@ -253,7 +253,7 @@ export default function PropertyDetail() {
               {/* Left: Main Details */}
               <div className="lg:col-span-2 space-y-10">
                 {/* Title & Price */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -291,10 +291,10 @@ export default function PropertyDetail() {
                     <MapPin className="w-4 h-4 mt-1 shrink-0 text-gold-500/70" />
                     <span>{property.address}</span>
                   </div>
-                </motion.div>
+                </m.div>
 
                 {/* Stats Bar */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
@@ -335,10 +335,10 @@ export default function PropertyDetail() {
                     </div>
                     <div className="text-text-muted text-xs">Acres</div>
                   </div>
-                </motion.div>
+                </m.div>
 
                 {/* Description */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
@@ -349,10 +349,10 @@ export default function PropertyDetail() {
                   <p className="text-text-secondary leading-relaxed text-lg">
                     {property.description}
                   </p>
-                </motion.div>
+                </m.div>
 
                 {/* Features / Amenities */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
@@ -375,10 +375,10 @@ export default function PropertyDetail() {
                       </div>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
 
                 {/* Floor Plan */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
@@ -398,7 +398,7 @@ export default function PropertyDetail() {
 
                   <AnimatePresence>
                     {showFloorPlan && (
-                      <motion.div
+                      <m.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
@@ -409,7 +409,7 @@ export default function PropertyDetail() {
                           alt={`Floor plan for ${property.title}`}
                           className="w-full h-auto"
                         />
-                      </motion.div>
+                      </m.div>
                     )}
                   </AnimatePresence>
 
@@ -433,14 +433,14 @@ export default function PropertyDetail() {
                       </div>
                     </button>
                   )}
-                </motion.div>
+                </m.div>
               </div>
 
               {/* Right: Agent Sidebar */}
               <div className="lg:col-span-1">
                 <div className="sticky top-24 space-y-6">
                   {/* Agent Card */}
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
@@ -492,7 +492,7 @@ export default function PropertyDetail() {
                         Schedule a Tour
                       </button>
                     </div>
-                  </motion.div>
+                  </m.div>
 
                   {/* Property Contact Form */}
                   <Suspense fallback={<div className="h-96 bg-navy-800/30 rounded-2xl animate-pulse" />}>
@@ -508,7 +508,7 @@ export default function PropertyDetail() {
 
                   {/* Similar Properties */}
                   {similarProperties.length > 0 && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.4 }}
@@ -541,7 +541,7 @@ export default function PropertyDetail() {
                           </button>
                         ))}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </div>
               </div>

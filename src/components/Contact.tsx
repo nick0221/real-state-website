@@ -1,23 +1,9 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, lazy, Suspense } from "react";
+import { m } from "../utils/motion";
 import { Send, Phone, Mail, MapPin, Clock, CheckCircle, Loader2 } from "lucide-react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
 import { submitContactForm } from "../utils/api";
 
-// Fix Leaflet default marker icon issue with bundlers
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(L.Icon.Default as any).mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
-
-const OFFICE_COORDS: [number, number] = [34.0679, -118.4051]; // Beverly Hills
+const MapView = lazy(() => import("./MapView"));
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -82,7 +68,7 @@ export default function Contact() {
 
       <div className="container-main relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -100,7 +86,7 @@ export default function Contact() {
             Ready to start your real estate journey? Reach out and let our
             experts guide you every step of the way.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Info Cards */}
@@ -108,7 +94,7 @@ export default function Contact() {
             {contactInfo.map((info, index) => {
               const Icon = info.icon;
               return (
-                <motion.div
+                <m.div
                   key={info.label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -137,41 +123,32 @@ export default function Contact() {
                       <div className="text-sm text-text-primary">{info.value}</div>
                     </div>
                   )}
-                </motion.div>
+                </m.div>
               );
             })}
 
-            {/* Interactive Map */}
-            <motion.div
+            {/* Interactive Map — lazy-loaded */}
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.4 }}
               className="sm:col-span-2 bg-navy-800/50 border border-navy-500/20 rounded-xl overflow-hidden h-64 hover:border-gold-500/30 transition-all duration-300 gold-glow"
             >
-              <MapContainer
-                center={OFFICE_COORDS}
-                zoom={15}
-                scrollWheelZoom={false}
-                style={{ width: "100%", height: "100%" }}
-                className="z-0"
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center bg-navy-800/30">
+                    <div className="w-8 h-8 border-2 border-gold-500/50 border-t-transparent rounded-full animate-spin" />
+                  </div>
+                }
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={OFFICE_COORDS}>
-                  <Popup>
-                    <div className="font-semibold">Prestige Estates</div>
-                    <div className="text-sm">9420 Wilshire Blvd<br />Beverly Hills, CA 90212</div>
-                  </Popup>
-                </Marker>
-              </MapContainer>
-            </motion.div>
+                <MapView />
+              </Suspense>
+            </m.div>
           </div>
 
           {/* Contact Form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -284,7 +261,7 @@ export default function Contact() {
                 </button>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

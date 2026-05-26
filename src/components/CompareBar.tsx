@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import { useNavigate } from "react-router-dom";
 import { X, BarChart3, ArrowRight } from "lucide-react";
 import { useCompare } from "../context/CompareContext";
@@ -11,7 +11,7 @@ export default function CompareBar() {
   return (
     <AnimatePresence>
       {selected.length > 0 && (
-        <motion.div
+        <m.div
           initial={{ y: 120, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 120, opacity: 0 }}
@@ -32,7 +32,7 @@ export default function CompareBar() {
               {Array.from({ length: 3 }).map((_, i) => {
                 const p = selected[i];
                 return (
-                  <motion.div
+                  <m.div
                     key={p?.id ?? `empty-${i}`}
                     initial={p ? { opacity: 0, x: -30, scale: 0.9 } : false}
                     animate={p ? { opacity: 1, x: 0, scale: 1 } : {}}
@@ -79,7 +79,7 @@ export default function CompareBar() {
                         </span>
                       </div>
                     )}
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
@@ -94,7 +94,7 @@ export default function CompareBar() {
                 Clear
               </button>
               {selected.length >= 2 && (
-                <motion.button
+                <m.button
                   initial={{ scale: 0.9 }}
                   animate={{ scale: 1 }}
                   onClick={() => navigate("/compare")}
@@ -103,7 +103,7 @@ export default function CompareBar() {
                   <BarChart3 className="w-4 h-4" />
                   <span className="hidden sm:inline">Compare Now</span>
                   <ArrowRight className="w-4 h-4" />
-                </motion.button>
+                </m.button>
               )}
               {/* Mobile compare count badge */}
               <span className="md:hidden text-text-muted text-xs">
@@ -111,7 +111,7 @@ export default function CompareBar() {
               </span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

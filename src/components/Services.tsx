@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "../utils/motion";
 import { Building, Handshake, ShieldCheck, PieChart, Key, Home } from "lucide-react";
 
 const services = [
@@ -54,7 +54,7 @@ export default function Services() {
 
       <div className="container-main relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -73,14 +73,14 @@ export default function Services() {
             From first consultation to final handshake, we provide end-to-end
             services tailored to your unique real estate goals.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Services Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <motion.div
+              <m.div
                 key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function Services() {
 
                 {/* Bottom accent line */}
                 <div className="absolute bottom-0 left-8 right-8 h-0.5 bg-linear-to-r from-gold-500/0 via-gold-500/50 to-gold-500/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

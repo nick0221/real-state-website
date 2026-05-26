@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import { ChevronUp } from "lucide-react";
 
 const VISIBLE_THRESHOLD = 500;
@@ -33,7 +33,7 @@ export default function BackToTop() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.button
+        <m.button
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -43,7 +43,7 @@ export default function BackToTop() {
           aria-label="Scroll to top"
         >
           <ChevronUp className="w-6 h-6" />
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   );

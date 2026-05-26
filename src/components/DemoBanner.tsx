@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import { X } from "lucide-react";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ export default function DemoBanner() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: BANNER_HEIGHT }}
           exit={{ opacity: 0, height: 0 }}
@@ -38,7 +38,7 @@ export default function DemoBanner() {
               <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

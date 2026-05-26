@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "../utils/motion";
 import { useNavigate } from "react-router-dom";
 import { Bed, Bath, Maximize, MapPin, BarChart3, Check } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
@@ -17,7 +17,7 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
   const selected = isSelected(property.id);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -133,7 +133,7 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
           </div>
         </div>
 
-        <motion.button
+        <m.button
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/property/${property.id}`);
@@ -143,8 +143,8 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
           className="w-full mt-3 py-2.5 rounded-xl bg-navy-700/50 border border-navy-400/30 text-text-secondary text-sm font-medium hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all duration-300 cursor-pointer"
         >
           View Details
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

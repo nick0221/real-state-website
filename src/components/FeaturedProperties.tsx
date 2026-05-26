@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import {
   ArrowRight,
   SlidersHorizontal,
@@ -132,7 +132,7 @@ export default function FeaturedProperties() {
 
       <div className="container-main relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -162,7 +162,7 @@ export default function FeaturedProperties() {
             </span>
 
             {/* Filter toggle */}
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowFilters(!showFilters)}
@@ -177,14 +177,14 @@ export default function FeaturedProperties() {
               {hasActiveFilters && (
                 <span className="w-2 h-2 rounded-full bg-gold-500" />
               )}
-            </motion.button>
+            </m.button>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Filter Panel */}
         <AnimatePresence>
           {showFilters && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -303,13 +303,13 @@ export default function FeaturedProperties() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
         {/* Active filter summary chips (shown when filters are hidden but active) */}
         {!showFilters && hasActiveFilters && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-wrap items-center gap-2 mb-8"
@@ -357,13 +357,13 @@ export default function FeaturedProperties() {
             <span className="text-text-muted text-xs ml-1">
               {filtered.length} result{filtered.length !== 1 ? "s" : ""}
             </span>
-          </motion.div>
+          </m.div>
         )}
 
         {/* Properties Grid or Empty State */}
         <AnimatePresence mode="wait">
           {filtered.length > 0 ? (
-            <motion.div
+            <m.div
               key="grid"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -374,9 +374,9 @@ export default function FeaturedProperties() {
               {filtered.map((property, index) => (
                 <PropertyCard key={property.id} property={property} index={index} />
               ))}
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="empty"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -401,13 +401,13 @@ export default function FeaturedProperties() {
                 </button>
                 .
               </p>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
         {/* Mobile CTA */}
         {filtered.length > 0 && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -417,7 +417,7 @@ export default function FeaturedProperties() {
               View All Properties
               <ArrowRight className="w-4 h-4" />
             </button>
-          </motion.div>
+          </m.div>
         )}
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, AnimatePresence, useMotionValue, useSpring, useTransform } from "../utils/motion";
 import { Calculator, DollarSign, Percent, Home } from "lucide-react";
 
 interface MortgageCalculatorProps {
@@ -28,13 +28,13 @@ function AnimatedNumber({ value, prefix = "", suffix = "" }: { value: number; pr
   }, [value, motionValue]);
 
   return (
-    <motion.span
+    <m.span
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
     >
       {display}
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -82,7 +82,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
   const totalMonthly = principalAndInterest + monthlyTax + estimatedInsurance;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
@@ -101,7 +101,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
             Mortgage Calculator
           </span>
         </div>
-        <motion.svg
+        <m.svg
           animate={{ rotate: expanded ? 180 : 0 }}
           transition={{ duration: 0.3 }}
           className="w-4 h-4 text-text-secondary"
@@ -111,12 +111,12 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
           strokeWidth="2"
         >
           <path d="M6 9l6 6 6-6" />
-        </motion.svg>
+        </m.svg>
       </button>
 
       <AnimatePresence>
         {expanded && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -283,7 +283,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
                 personalized quote.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -300,6 +300,6 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
           </div>
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "../utils/motion";
 import { Quote, ChevronLeft, ChevronRight, Star, Pause, Play } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { testimonials } from "../data/properties";
@@ -52,7 +52,7 @@ export default function Testimonials() {
 
       <div className="container-main relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -70,7 +70,7 @@ export default function Testimonials() {
             Hear from the homeowners, investors, and families who trusted us with
             their real estate journey.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Carousel */}
         <div
@@ -85,7 +85,7 @@ export default function Testimonials() {
         >
           <div className="relative min-h-[300px] flex items-center">
             <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
+              <m.div
                 key={current}
                 custom={direction}
                 variants={slideVariants}
@@ -133,7 +133,7 @@ export default function Testimonials() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
 

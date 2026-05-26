@@ -185,8 +185,8 @@
     }
     </script>
 
-    <!-- Preload the LCP hero background image (discovered early for fast Largest Contentful Paint) -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&amp;q=85" fetchpriority="high" />
+    <!-- Preload the LCP hero background image (self-hosted WebP — no external DNS/TLS) -->
+    <link rel="preload" as="image" href="/images/hero-bg-1200.webp" fetchpriority="high" />
 
     <!-- Preload critical font variants used above the fold (heading + body) -->
     <link rel="preload" as="font" type="font/woff2" href="/assets/cormorant-garamond-latin-400-normal-B-1hWBU7.woff2" crossorigin />
