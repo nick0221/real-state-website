@@ -1,9 +1,28 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
+import { Send, Phone, Mail, MapPin, Clock, CheckCircle, Loader2 } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import { submitContactForm } from "../utils/api";
+
+// Fix Leaflet default marker icon issue with bundlers
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(L.Icon.Default as any).mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
+
+const OFFICE_COORDS: [number, number] = [34.0679, -118.4051]; // Beverly Hills
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,10 +30,21 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      await submitContactForm(formData);
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -111,22 +141,32 @@ export default function Contact() {
               );
             })}
 
-            {/* Map Placeholder */}
+            {/* Interactive Map */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.4 }}
-              className="sm:col-span-2 bg-navy-800/50 border border-navy-500/20 rounded-xl overflow-hidden h-48 hover:border-gold-500/30 transition-all duration-300"
+              className="sm:col-span-2 bg-navy-800/50 border border-navy-500/20 rounded-xl overflow-hidden h-64 hover:border-gold-500/30 transition-all duration-300 gold-glow"
             >
-              <div className="w-full h-full bg-linear-to-br from-navy-700/50 to-navy-800/80 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-gold-500 mx-auto mb-2" />
-                  <p className="text-text-muted text-sm">
-                    Beverly Hills Office — Map Loading
-                  </p>
-                </div>
-              </div>
+              <MapContainer
+                center={OFFICE_COORDS}
+                zoom={15}
+                scrollWheelZoom={false}
+                style={{ width: "100%", height: "100%" }}
+                className="z-0"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}{r}.png"
+                />
+                <Marker position={OFFICE_COORDS}>
+                  <Popup>
+                    <div className="font-semibold">Prestige Estates</div>
+                    <div className="text-sm">9420 Wilshire Blvd<br />Beverly Hills, CA 90212</div>
+                  </Popup>
+                </Marker>
+              </MapContainer>
             </motion.div>
           </div>
 
@@ -214,11 +254,23 @@ export default function Contact() {
                   />
                 </div>
 
+                {error && (
+                  <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm" role="alert">
+                    {error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="btn-primary w-full"
+                  disabled={submitting}
+                  className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {submitted ? (
+                  {submitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : submitted ? (
                     <>
                       <CheckCircle className="w-5 h-5" />
                       Message Sent!

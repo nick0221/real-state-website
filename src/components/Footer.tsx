@@ -7,8 +7,10 @@ import {
   MessageCircle,
   Briefcase,
   Play,
+  Loader2,
 } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { submitNewsletter } from "../utils/api";
 
 const footerLinks = [
   {
@@ -53,13 +55,24 @@ const socialLinks = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+  const [subError, setSubError] = useState<string | null>(null);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+    setSubscribing(true);
+    setSubError(null);
+
+    try {
+      await submitNewsletter({ email });
       setSubscribed(true);
       setEmail("");
-      setTimeout(() => setSubscribed(false), 3000);
+      setTimeout(() => setSubscribed(false), 4000);
+    } catch (err) {
+      setSubError(err instanceof Error ? err.message : "Failed to subscribe.");
+    } finally {
+      setSubscribing(false);
     }
   };
 
@@ -152,9 +165,12 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 bg-gold-500 text-navy-900 rounded-xl font-medium text-sm hover:bg-gold-400 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+                  disabled={subscribing}
+                  className="px-4 py-2.5 bg-gold-500 text-navy-900 rounded-xl font-medium text-sm hover:bg-gold-400 transition-all duration-300 flex items-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {subscribed ? (
+                  {subscribing ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : subscribed ? (
                     <CheckCircle className="w-4 h-4" />
                   ) : (
                     <Send className="w-4 h-4" />
@@ -162,6 +178,10 @@ export default function Footer() {
                 </button>
               </form>
             </div>
+
+            {subError && (
+              <p className="text-red-400 text-xs mt-1" role="alert">{subError}</p>
+            )}
 
             {/* Copyright */}
             <div className="text-text-muted text-sm">
