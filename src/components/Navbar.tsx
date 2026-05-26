@@ -127,11 +127,11 @@ export default function Navbar() {
     <>
     <motion.nav
       animate={{ y: hidden ? -(100 + bannerOffset) : bannerOffset }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 max-lg:bg-navy-900/95 ${
+      transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 max-lg:bg-navy-900/95 ${
         scrolled
-          ? "bg-navy-900/95 backdrop-blur-xl max-lg:backdrop-blur-sm shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
-          : "lg:bg-transparent"
+          ? "bg-navy-900/80 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_4px_30px_rgba(0,0,0,0.4)] border-b border-navy-500/10"
+          : "lg:bg-transparent lg:border-b lg:border-transparent"
       }`}
     >
       <div className="container-main flex items-center justify-between px-6 py-4">

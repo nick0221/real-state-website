@@ -37,10 +37,27 @@ export default function PropertyCard({ property, index }: PropertyCardProps) {
           loading="lazy"
         />
         {/* Overlays */}
-        <div className="absolute inset-0 bg-linear-to-t from-navy-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy-900/90 via-navy-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        {/* Hover info slide-up */}
+        <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-white/80 text-xs">
+              <Bed className="w-3.5 h-3.5" />
+              <span>{property.beds} Beds</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-white/80 text-xs">
+              <Bath className="w-3.5 h-3.5" />
+              <span>{property.baths} Baths</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-white/80 text-xs">
+              <Maximize className="w-3.5 h-3.5" />
+              <span>{property.sqft.toLocaleString()} sqft</span>
+            </div>
+          </div>
+        </div>
 
         {/* Status Badge */}
-        <div className="absolute top-4 left-4 flex gap-2">
           <span
             className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
               property.status === "available"

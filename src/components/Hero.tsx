@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Search, MapPin, Home, TrendingUp } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 
@@ -19,6 +19,11 @@ export default function Hero() {
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
   const [selectedType, setSelectedType] = useState(searchParams.get("type") || "All");
 
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 600], [0, 180]);
+  const backgroundScale = useTransform(scrollY, [0, 600], [1, 1.1]);
+  const overlayOpacity = useTransform(scrollY, [0, 400], [1, 0.7]);
+
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery.trim()) params.set("search", searchQuery.trim());
@@ -29,17 +34,22 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Layer */}
-      <div className="absolute inset-0">
-        <OptimizedImage
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85"
-          alt="Luxury estate"
-          className="w-full h-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-        />
+      {/* Background Layer - Parallax */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          style={{ y: backgroundY, scale: backgroundScale }}
+          className="absolute inset-0"
+        >
+          <OptimizedImage
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=85"
+            alt="Luxury estate"
+            className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </motion.div>
         {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
+        <motion.div style={{ opacity: overlayOpacity }} className="absolute inset-0 bg-linear-to-b from-navy-900/70 via-navy-900/50 to-navy-900/90" />
         <div className="absolute inset-0 bg-linear-to-r from-navy-900/40 to-transparent" />
         {/* Decorative gradient orb */}
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-[120px]" />

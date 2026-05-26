@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Calculator, DollarSign, Percent, Home } from "lucide-react";
 
 interface MortgageCalculatorProps {
@@ -12,6 +12,31 @@ const formatCurrency = (val: number) =>
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(val);
+
+function AnimatedNumber({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
+  const motionValue = useMotionValue(value);
+  const spring = useSpring(motionValue, { stiffness: 100, damping: 25 });
+  const rounded = useTransform(spring, (v) => Math.round(v));
+  const display = useTransform(rounded, (v) => `${prefix}${v.toLocaleString()}${suffix}`);
+
+  const prevRef = useRef(value);
+  useEffect(() => {
+    if (prevRef.current !== value) {
+      motionValue.set(value);
+      prevRef.current = value;
+    }
+  }, [value, motionValue]);
+
+  return (
+    <motion.span
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      {display}
+    </motion.span>
+  );
+}
 
 function calculateMonthlyPayment(
   principal: number,
@@ -105,7 +130,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
                   Estimated Monthly Payment
                 </div>
                 <div className="font-display text-2xl font-bold gradient-text">
-                  {formatCurrency(totalMonthly)}
+                  <AnimatedNumber value={Math.round(totalMonthly)} prefix="$" />
                 </div>
                 <div className="text-text-muted text-xs mt-1">
                   {loanTerm}-year fixed-rate mortgage
@@ -120,9 +145,9 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
                     Down Payment
                   </label>
                   <div className="text-text-primary font-semibold">
-                    {downPaymentPercent}%
+                    <AnimatedNumber value={downPaymentPercent} suffix="%" />
                     <span className="text-text-muted font-normal ml-1">
-                      ({formatCurrency(downPayment)})
+                      (<AnimatedNumber value={Math.round(downPayment)} prefix="$" />)
                     </span>
                   </div>
                 </div>
@@ -175,7 +200,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
                     Loan Term
                   </label>
                   <span className="text-text-primary font-semibold">
-                    {loanTerm} years
+                    <AnimatedNumber value={loanTerm} suffix=" years" />
                   </span>
                 </div>
                 <div className="flex gap-2">
@@ -228,25 +253,25 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-text-secondary">Principal & Interest</span>
                   <span className="text-text-primary font-medium">
-                    {formatCurrency(principalAndInterest)}
+                    <AnimatedNumber value={Math.round(principalAndInterest)} prefix="$" />
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-text-secondary">Property Tax</span>
                   <span className="text-text-primary font-medium">
-                    {formatCurrency(monthlyTax)}
+                    <AnimatedNumber value={Math.round(monthlyTax)} prefix="$" />
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-text-secondary">Home Insurance (est.)</span>
                   <span className="text-text-primary font-medium">
-                    {formatCurrency(estimatedInsurance)}
+                    <AnimatedNumber value={Math.round(estimatedInsurance)} prefix="$" />
                   </span>
                 </div>
                 <div className="border-t border-navy-500/20 pt-2 flex items-center justify-between text-sm">
                   <span className="text-gold-500 font-semibold">Total</span>
                   <span className="text-gold-500 font-bold">
-                    {formatCurrency(totalMonthly)}
+                    <AnimatedNumber value={Math.round(totalMonthly)} prefix="$" />
                   </span>
                 </div>
               </div>
@@ -269,7 +294,7 @@ export default function MortgageCalculator({ price }: MortgageCalculatorProps) {
             <div className="flex items-center justify-between">
               <span className="text-text-muted text-xs">Est. payment / mo</span>
               <span className="text-gold-500 font-bold text-lg font-display">
-                {formatCurrency(totalMonthly)}
+                <AnimatedNumber value={Math.round(totalMonthly)} prefix="$" />
               </span>
             </div>
           </div>

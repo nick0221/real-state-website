@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Quote, ChevronLeft, ChevronRight, Star, Pause, Play } from "lucide-react";
 import OptimizedImage from "./OptimizedImage";
 import { testimonials } from "../data/properties";
+
+const AUTO_ADVANCE_INTERVAL = 5000;
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const slideVariants = {
     enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
@@ -14,7 +18,7 @@ export default function Testimonials() {
     exit: (dir: number) => ({ x: dir < 0 ? 300 : -300, opacity: 0 }),
   };
 
-  const paginate = (newDir: number) => {
+  const paginate = useCallback((newDir: number) => {
     setDirection(newDir);
     setCurrent((prev) => {
       const next = prev + newDir;
@@ -22,7 +26,21 @@ export default function Testimonials() {
       if (next >= testimonials.length) return 0;
       return next;
     });
-  };
+  }, []);
+
+  // Auto-advance
+  useEffect(() => {
+    if (isPaused) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      return;
+    }
+    intervalRef.current = setInterval(() => {
+      paginate(1);
+    }, AUTO_ADVANCE_INTERVAL);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isPaused, paginate]);
 
   const t = testimonials[current];
 
@@ -55,7 +73,16 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Carousel */}
-        <div className="max-w-4xl mx-auto" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+        <div
+          className="max-w-4xl mx-auto"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Client testimonials"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
           <div className="relative min-h-[300px] flex items-center">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -110,8 +137,23 @@ export default function Testimonials() {
             </AnimatePresence>
           </div>
 
+          {/* Auto-play indicator */}
+          <div className="flex items-center justify-center gap-2 mt-5">
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-text-muted hover:text-gold-500 hover:bg-navy-700/50 transition-all duration-300 cursor-pointer"
+              aria-label={isPaused ? "Resume auto-play" : "Pause auto-play"}
+            >
+              {isPaused ? (
+                <><Play className="w-3 h-3" /> Auto</>
+              ) : (
+                <><Pause className="w-3 h-3" /> Auto</>
+              )}
+            </button>
+          </div>
+
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="flex items-center justify-center gap-4 mt-4">
             <button
               onClick={() => paginate(-1)}
               className="w-12 h-12 rounded-full bg-navy-800/50 border border-navy-500/20 flex items-center justify-center text-text-secondary hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all duration-300 cursor-pointer"

@@ -32,8 +32,11 @@ export default function CompareBar() {
               {Array.from({ length: 3 }).map((_, i) => {
                 const p = selected[i];
                 return (
-                  <div
-                    key={p?.id ?? i}
+                  <motion.div
+                    key={p?.id ?? `empty-${i}`}
+                    initial={p ? { opacity: 0, x: -30, scale: 0.9 } : false}
+                    animate={p ? { opacity: 1, x: 0, scale: 1 } : {}}
+                    transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1], delay: i * 0.08 }}
                     className={`relative flex items-center gap-2 p-1.5 rounded-xl border shrink-0 min-w-0 ${
                       p
                         ? "bg-navy-800/80 border-gold-500/25"
@@ -76,7 +79,7 @@ export default function CompareBar() {
                         </span>
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
