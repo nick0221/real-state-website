@@ -29,6 +29,162 @@
     <meta name="twitter:image" content="https://real-state-website-iota-tawny.vercel.app/webpage.png" />
 
     <link rel="canonical" href="https://real-state-website-iota-tawny.vercel.app/" />
+
+    <!-- JSON-LD Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Prestige Estates",
+      "description": "Luxury real estate agency curating exceptional properties for discerning clients worldwide.",
+      "url": "https://real-state-website-iota-tawny.vercel.app/",
+      "telephone": "+1-310-555-0142",
+      "email": "hello@prestigeestates.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "9420 Wilshire Blvd",
+        "addressLocality": "Beverly Hills",
+        "addressRegion": "CA",
+        "postalCode": "90212",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": [
+          "Los Angeles",
+          "Beverly Hills",
+          "Malibu",
+          "San Francisco",
+          "Napa Valley",
+          "Palm Springs"
+        ]
+      },
+      "foundingDate": "1999",
+      "numberOfEmployees": "12",
+      "priceRange": "$3,200 - $15,600,000",
+      "image": "https://real-state-website-iota-tawny.vercel.app/webpage.png",
+      "sameAs": [
+        "https://instagram.com/prestigeestates",
+        "https://twitter.com/prestigeestates",
+        "https://linkedin.com/company/prestigeestates"
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://real-state-website-iota-tawny.vercel.app/",
+      "name": "Prestige Estates — Luxury Real Estate",
+      "description": "Discover luxury properties with Prestige Estates. Your gateway to exceptional real estate investments.",
+      "author": {
+        "@type": "RealEstateAgent",
+        "name": "Prestige Estates"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://real-state-website-iota-tawny.vercel.app/?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: Property Listings -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Product",
+            "name": "Modern Glass Estate",
+            "description": "An architectural masterpiece featuring floor-to-ceiling windows, infinity pool, and panoramic city views.",
+            "url": "https://real-state-website-iota-tawny.vercel.app/property/1",
+            "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+            "offers": {
+              "@type": "Offer",
+              "price": 12800000,
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Product",
+            "name": "Mediterranean Villa",
+            "url": "https://real-state-website-iota-tawny.vercel.app/property/2",
+            "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+            "offers": {
+              "@type": "Offer",
+              "price": 9500000,
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Product",
+            "name": "Ultra-Modern Penthouse",
+            "url": "https://real-state-website-iota-tawny.vercel.app/property/3",
+            "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+            "offers": {
+              "@type": "Offer",
+              "price": 6800000,
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/LimitedAvailability"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "Product",
+            "name": "Wine Country Estate",
+            "url": "https://real-state-website-iota-tawny.vercel.app/property/9",
+            "image": "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80",
+            "offers": {
+              "@type": "Offer",
+              "price": 8900000,
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Product",
+            "name": "Hilltop Colonial Estate",
+            "url": "https://real-state-website-iota-tawny.vercel.app/property/5",
+            "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+            "offers": {
+              "@type": "Offer",
+              "price": 15600000,
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
     <!-- Fonts are self-hosted via @fontsource — see src/fonts.css -->
   </head>
   <body>

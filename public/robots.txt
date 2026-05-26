@@ -1,0 +1,5 @@
+# Prestige Estates — robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://real-state-website-iota-tawny.vercel.app/sitemap.xml
